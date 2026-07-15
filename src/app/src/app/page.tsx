@@ -1,10 +1,18 @@
 import React from 'react';
-import { Trophy, Activity, Wallet, ChevronRight, PieChart } from 'lucide-react';
+import { Trophy, Activity, Wallet, ChevronRight, PieChart, Bike } from 'lucide-react';
 
 const games = [
   { id: 1, home: 'PHI Eagles', away: 'DET Lions', hScore: 17, aScore: 14, time: 'Q3 11:45', spread: '-3.5', total: 'O 48.5', ml: '-190' },
   { id: 2, home: 'DEN Broncos', away: 'LV Raiders', hScore: 0, aScore: 3, time: 'Q1 08:12', spread: '+1.5', total: 'U 41.5', ml: '+125' },
   { id: 3, home: 'KC Chiefs', away: 'BAL Ravens', hScore: 24, aScore: 20, time: 'Final', spread: '-7.5', total: 'O 45.5', ml: '-320' },
+];
+
+const motoGpEvents = [
+  { id: 101, name: 'MotoGP Japan - Twin Ring Motegi', time: 'LIVE - Lap 12/24', odds: [
+    { label: 'Winner: Bagnaia', val: '+120' },
+    { label: 'Winner: Martin', val: '+150' },
+    { label: 'Winner: Marquez', val: '+350' }
+  ]}
 ];
 
 export default function Home() {
@@ -28,6 +36,10 @@ export default function Home() {
           <div className="flex items-center gap-2 p-3 text-gray-400 hover:bg-[#1e2329] rounded transition-colors cursor-pointer">
             <Trophy size={18} />
             <span className="text-sm">NFL Regular</span>
+          </div>
+          <div className="flex items-center gap-2 p-3 text-gray-400 hover:bg-[#1e2329] rounded transition-colors cursor-pointer">
+            <Bike size={18} />
+            <span className="text-sm">Motor Sports</span>
           </div>
           <div className="flex items-center gap-2 p-3 text-gray-400 hover:bg-[#1e2329] rounded transition-colors cursor-pointer">
             <PieChart size={18} />
@@ -74,6 +86,48 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <div className="mt-12">
+            <div className="flex items-center gap-3 mb-6">
+              <Bike size={20} className="text-[#4ade80]" />
+              <h2 className="text-lg font-bold">MOTOR SPORTS</h2>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {motoGpEvents.map(event => (
+                <div key={event.id} className="bg-[#1e2329] rounded-xl border border-[#2b3139] overflow-hidden">
+                  <div className="p-4 bg-gradient-to-r from-[#1e2329] to-[#2b3139] flex justify-between items-center border-b border-[#2b3139]">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-[#4ade80]/20 p-2 rounded-lg">
+                        <Bike size={20} className="text-[#4ade80]" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold">{event.name}</div>
+                        <div className="text-[10px] text-[#4ade80] font-bold animate-pulse">{event.time}</div>
+                      </div>
+                    </div>
+                    <ChevronRight className="text-gray-500" size={16} />
+                  </div>
+                  <div className="grid grid-cols-3 p-4 gap-3">
+                    {event.odds.map((odd, idx) => (
+                      <button key={idx} className="bg-[#2b3139] hover:border-[#4ade80] border border-transparent p-3 rounded-lg flex flex-col items-center transition-all group">
+                        <span className="text-[10px] text-gray-400 mb-1">{odd.label}</span>
+                        <span className="font-bold text-[#4ade80]">{odd.val}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="px-4 pb-4 flex gap-2">
+                    <button className="flex-1 bg-[#161a1e] border border-[#2b3139] py-2 rounded-md text-[10px] font-bold hover:bg-[#2b3139] transition-colors">
+                      WINNER OPTIONS
+                    </button>
+                    <button className="flex-1 bg-[#161a1e] border border-[#2b3139] py-2 rounded-md text-[10px] font-bold hover:bg-[#2b3139] transition-colors">
+                      PODIUM FINISH
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         <aside className="col-span-3 bg-[#161a1e] border-l border-[#2b3139] p-6">
@@ -104,4 +158,3 @@ export default function Home() {
     </div>
   );
 }
-
